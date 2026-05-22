@@ -14,6 +14,7 @@ public class ArrivalZone implements ParkZone{
     private final Queue<Tourist> waitingQueue;
     private final double ticketPrice;
     private int touristsInside;
+    private DatabaseService db;
 
     public ArrivalZone(int maxCapacity, double ticketPrice) {
         this.name = "Arrival zone";
@@ -34,23 +35,25 @@ public class ArrivalZone implements ParkZone{
 
     @Override
     public int getCurrentOccupancy() {
-        return 0;
+        return this.touristsInside;
     }
 
     @Override
     public int getMaxCapacity() {
-        return 0;
+        return this.maxCapacity;
     }
 
     @Override
     public void enter(Tourist tourist) {
-        //if()
-        
+        if(!hasCapacity())
+            return;
+        touristsInside++;
     }
 
     @Override
     public void exit(Tourist tourist) {
-
+        if(touristsInside > 0)
+            touristsInside--;
     }
 
     public void addTourist(Tourist tourist) {
